@@ -1,0 +1,53 @@
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
+
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
+.todoList {
+  border: 1px solid green;
+  border-radius: 3px;
+  /*background-color: yellowgreen;*/
+  padding: 20px;
+}
+.tasks-list {
+  list-style: none;
+  padding: 0;
+}
+.tasks-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+.buttons-block {
+  display: flex;
+  justify-content: space-between;
+}
+.todolist-header {
+  text-align: center;
+}
+.btn-filter-active {
+  background-color: coral;
+  color: white;
+  font-weight: bold;
+  border: coral 2px solid;
+}
+.task {
+  font-weight: bold;
+}
+.task-done {
+  font-weight: normal;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.user-error {
+  border: 2px solid red;
+  outline: none;
+}
+
+.wrapper {
+  display: block;
+  align-items: center;
+  border-radius: 1px;
+}
