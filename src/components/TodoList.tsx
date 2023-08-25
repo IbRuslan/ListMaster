@@ -3,15 +3,9 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from '@material-ui/core';
 import {HighlightOff} from "@material-ui/icons";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType, ThunkType, useAppDispatch, useAppSelector} from "../redux/store";
-import {addTaskAC, createTaskTC, getTasksTC} from "../redux/tasks-reducer";
-import {
-    changeTodoListFilterAC,
-    changeTodoListTitleAC, FilterValuesType,
-    removeTodoListAC, removeTodoTC,
-    TodoListDomainType, updateTodoTC
-} from "../redux/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {createTaskTC, getTasksTC} from "../redux/tasks-reducer";
+import {changeTodoListFilterAC, FilterValuesType, removeTodoTC, TodoListDomainType, updateTodoTC} from "../redux/todolists-reducer";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "../api/api";
 

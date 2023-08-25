@@ -115,7 +115,7 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, status: T
         }
         TasksApi.updateTask(todolistId, taskId, model)
             .then((res) => {
-                console.log(res.data)
+                res.data
                 dispatch(changeTaskStatusAC(status, todolistId, taskId))
             })
     }
@@ -133,6 +133,7 @@ export const updateTaskTitleTC = (todolistId: string, taskId: string, title: str
         }
         TasksApi.updateTask(todolistId, taskId, model)
             .then((res) => {
+                res.data
                 dispatch(changeTaskTitleAC(title, todolistId, taskId))
             })
     }
@@ -140,6 +141,7 @@ export const updateTaskTitleTC = (todolistId: string, taskId: string, title: str
 export const deleteTaskTC = (todoId: string, taskId: string) => (dispatch: Dispatch) => {
     TasksApi.deleteTask(todoId, taskId)
         .then((res) => {
+            res.data
             dispatch(removeTaskAC(todoId, taskId))
     })
 }

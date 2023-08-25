@@ -1,5 +1,4 @@
 import {TodoListApi, TodoListType} from "../api/api";
-import {v1} from "uuid";
 import {Dispatch} from "redux";
 
 export type RemoveTodoListAT = {
@@ -92,12 +91,14 @@ export const createTodoTC = (title: string) => (dispatch: Dispatch) => {
 export const updateTodoTC = (todoId: string, newTitle: string) => (dispatch: Dispatch) => {
     TodoListApi.updateTodoList(todoId, newTitle)
         .then((res) => {
+            res.data
             dispatch(changeTodoListTitleAC(todoId, newTitle))
         })
 }
 export const removeTodoTC = (todoId: string) => (dispatch: Dispatch) => {
     TodoListApi.deleteTodoList(todoId)
         .then((res) => {
+            res.data
             dispatch(removeTodoListAC(todoId))
         })
 }

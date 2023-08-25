@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {TasksApi, TodoListApi} from "../api/api";
+import {TaskPriorities, TasksApi, TaskStatuses, TodoListApi} from "../api/api";
 
 export default {
     title: 'API'
@@ -98,17 +98,14 @@ export const UpdateTask = () => {
     const todoId = "b83faa19-58e4-4627-b432-862a9c2575de"
     const taskId = "172038cf-5ea0-49b0-a0e7-fd0ab7f5f620"
     const task = {
-        id: "172038cf-5ea0-49b0-a0e7-fd0ab7f5f620",
         title: "first",
-        description: null,
-        todoListId: "b83faa19-58e4-4627-b432-862a9c2575de",
-        order: -1,
+        description: '',
         status: 0,
         priority: 1,
-        startDate: null,
-        deadline: null,
-        addedDate: "2023-08-18T14:26:12.74"
+        startDate: '',
+        deadline: '',
     }
+
     useEffect(() => {
         TasksApi.updateTask(todoId, taskId, task)
             .then(res => {
