@@ -15,7 +15,7 @@ import {
     ThemeProvider, PaletteMode } from "@material-ui/core";
 import {Brightness4, Menu} from "@material-ui/icons";
 import {amber, teal} from '@material-ui/core/colors';
-import {addTodoListsAC, getTodosTC, TodoListDomainType} from "./redux/todolists-reducer";
+import {createTodoTC, getTodosTC, TodoListDomainType} from "./redux/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "./redux/store";
 import {TaskType} from "./api/api";
 
@@ -31,8 +31,7 @@ export const AppWithRedux = () => {
     const maxTodoListTitle = 15
 
     const addTodoList = useCallback((newTitle: string) => {
-        const action = addTodoListsAC(newTitle)
-        dispatch(action)
+        dispatch(createTodoTC(newTitle))
     }, [dispatch])
 
     useEffect(()=>{

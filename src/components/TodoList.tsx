@@ -9,8 +9,9 @@ import {addTaskAC, createTaskTC, getTasksTC} from "../redux/tasks-reducer";
 import {
     changeTodoListFilterAC,
     changeTodoListTitleAC, FilterValuesType,
-    removeTodoListAC,
-    TodoListDomainType } from "../redux/todolists-reducer";
+    removeTodoListAC, removeTodoTC,
+    TodoListDomainType, updateTodoTC
+} from "../redux/todolists-reducer";
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "../api/api";
 
@@ -58,7 +59,7 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
         </ul>
 
     const addTask = useCallback((title: string) => dispatch(createTaskTC(id, title)), [dispatch, id])
-    const changeTodoListTitle = useCallback((newTitle: string) => dispatch(changeTodoListTitleAC(newTitle, id)), [dispatch, id])
+    const changeTodoListTitle = useCallback((newTitle: string) => dispatch(updateTodoTC(id, newTitle)), [dispatch, id])
 
     const onAllClickHandler = useCallback(() => dispatch(changeTodoListFilterAC("all", id)), [dispatch, id])
     const onActiveClickHandler = useCallback(() => dispatch(changeTodoListFilterAC("active", id)), [dispatch, id])
@@ -69,7 +70,7 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
             <h3 className={"todolist-header"}>
                 <EditableSpan classes={''} title={title} changeTitle={changeTodoListTitle}/>
                 {/*<button onClick={() => props.removeTodoList(props.todoListId)}>x</button>*/}
-                <IconButton onClick={() => dispatch(removeTodoListAC(id))}>
+                <IconButton onClick={() => dispatch(removeTodoTC(id))}>
                     <HighlightOff/>
                 </IconButton>
             </h3>
