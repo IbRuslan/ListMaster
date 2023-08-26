@@ -1,13 +1,13 @@
 import React, {FC, memo, useCallback, useEffect} from 'react';
-import {AddItemForm} from "./AddItemForm/AddItemForm";
-import {EditableSpan} from "./EditableSpan/EditableSpan";
+import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton} from '@material-ui/core';
 import {HighlightOff} from "@material-ui/icons";
-import {useAppDispatch, useAppSelector} from "../redux/store";
-import {createTaskTC, getTasksTC} from "../redux/tasks-reducer";
-import {changeTodoListFilterAC, FilterValuesType, removeTodoTC, TodoListDomainType, updateTodoTC} from "../redux/todolists-reducer";
-import {Task} from "./Task";
-import {TaskStatuses, TaskType} from "../api/api";
+import {useAppDispatch, useAppSelector} from "../../../redux/store";
+import {createTaskTC, getTasksTC} from "../../../redux/tasks-reducer";
+import {changeTodoListFilterAC, FilterValuesType, removeTodoTC, TodoListDomainType, updateTodoTC} from "../../../redux/todolists-reducer";
+import {Task} from "./Task/Task";
+import {TaskStatuses, TaskType} from "../../../api/api";
 
 type TodoListPropsType = {
     todoList: TodoListDomainType

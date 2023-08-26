@@ -2,7 +2,7 @@ import React from "react";
 import {useAppSelector} from "../../redux/store";
 import {TodoListDomainType} from "../../redux/todolists-reducer";
 import {Grid, Paper} from "@material-ui/core";
-import {TodoList} from "../../components/TodoList";
+import {TodoList} from "./TodoList/TodoList";
 
 type TodoListsListPropsType = {}
 

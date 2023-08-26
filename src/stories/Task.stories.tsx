@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import React, {} from "react";
-import {Task} from "../components/Task";
+import {Task} from "../features/TodoListsList/TodoList/Task/Task";
 import {ReduxStoreProviderDecorator} from "./decoraties/ReduxStoreProviderDecorator";
 import {AppRootStateType} from "../redux/store";
 import {useSelector} from "react-redux";
