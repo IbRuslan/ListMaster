@@ -1,10 +1,9 @@
 import {v1} from "uuid";
 import {
-    addTodoListsAC,
+    addTodoListAC,
     changeTodoListFilterAC,
-    ChangeTodoListFilterAT,
     changeTodoListTitleAC,
-    ChangeTodoListTitleAT, FilterValuesType,
+    FilterValuesType,
     removeTodoListAC, TodoListDomainType,
     todoListsReducer
 } from "./todolists-reducer";
@@ -39,7 +38,7 @@ test('correct todolist should be added', () => {
     let newTodolistTitle = {id: "todolistId3", title: "What to learn", filter: "all", order: 0, addedDate: ''};
 
     const endState =
-        todoListsReducer(startState, addTodoListsAC(newTodolistTitle))
+        todoListsReducer(startState, addTodoListAC(newTodolistTitle))
     //
     expect(endState.length).toBe(3);
     expect(endState[0].title).toBe(newTodolistTitle.title);
@@ -59,7 +58,7 @@ test('correct todolist should change its filter', () => {
 
     let newTodolistFilter: FilterValuesType = "completed";
 
-    const action: ChangeTodoListFilterAT = {
+    const action = {
         type: "CHANGE-TODOLIST-FILTER",
         nextFilterValue: newTodolistFilter,
         todoListId: todolistId2

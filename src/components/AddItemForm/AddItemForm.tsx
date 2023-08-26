@@ -1,5 +1,5 @@
 import React, {ChangeEvent, memo, useState} from 'react';
-import '../App.css';
+import '../../app/App.css';
 import {Backspace, Delete, HighlightOff} from "@material-ui/icons";
 import {IconButton, TextField} from "@material-ui/core";
 

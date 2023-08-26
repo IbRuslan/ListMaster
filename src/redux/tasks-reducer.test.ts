@@ -1,5 +1,5 @@
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, tasksReducer} from './tasks-reducer';
-import {TaskStateType} from '../AppWithRedux';
+import {TaskStateType} from '../app/AppWithRedux';
 import {removeTaskAC} from "./tasks-reducer";
 import {TaskPriorities, TaskStatuses} from "../api/api";
 

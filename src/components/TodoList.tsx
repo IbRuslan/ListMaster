@@ -1,6 +1,6 @@
 import React, {FC, memo, useCallback, useEffect} from 'react';
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import {AddItemForm} from "./AddItemForm/AddItemForm";
+import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Button, IconButton} from '@material-ui/core';
 import {HighlightOff} from "@material-ui/icons";
 import {useAppDispatch, useAppSelector} from "../redux/store";

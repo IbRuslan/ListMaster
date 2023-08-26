@@ -14,7 +14,7 @@ const instance = axios.create({
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        TodoListApi.getTodoList()
+        TodoListApi.getTodoLists()
             .then(res => {
                 setState(res.data)
             })

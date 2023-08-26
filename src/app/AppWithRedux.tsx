@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
-import {TodoList} from "./components/TodoList";
-import {AddItemForm} from "./components/AddItemForm";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {
     AppBar,
     Paper,
@@ -12,12 +11,14 @@ import {
     Toolbar,
     Typography,
     createTheme,
-    ThemeProvider, PaletteMode } from "@material-ui/core";
+    ThemeProvider, PaletteMode
+} from "@material-ui/core";
 import {Brightness4, Menu} from "@material-ui/icons";
 import {amber, teal} from '@material-ui/core/colors';
-import {createTodoTC, getTodosTC, TodoListDomainType} from "./redux/todolists-reducer";
-import {useAppDispatch, useAppSelector} from "./redux/store";
-import {TaskType} from "./api/api";
+import {createTodoTC, getTodosTC, TodoListDomainType} from "../redux/todolists-reducer";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {TaskType} from "../api/api";
+import {TodoListsList} from "../features/TodoListsList/TodoListsList";
 
 export type TaskStateType = {
     [id: string]: Array<TaskType>
@@ -25,30 +26,17 @@ export type TaskStateType = {
 
 export const AppWithRedux = () => {
 
-    const todoLists = useAppSelector<Array<TodoListDomainType>>(state => state.todoLists)
     const dispatch = useAppDispatch()
 
-    const maxTodoListTitle = 15
+    const maxTodoListTitle = 10
 
     const addTodoList = useCallback((newTitle: string) => {
         dispatch(createTodoTC(newTitle))
     }, [dispatch])
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getTodosTC())
     }, [])
-
-    const todoListsComponents = todoLists.map(tl => {
-        return (
-            <Grid item key={tl.id}>
-                <Paper elevation={4}>
-                    <TodoList
-                        todoList={tl}
-                    />
-                </Paper>
-            </Grid>
-        )
-    })
 
     let [mode, setMode] = useState<PaletteMode | undefined>('light');
 
@@ -60,7 +48,7 @@ export const AppWithRedux = () => {
         }
     })
 
-    const changeTheme = ()=> mode === 'light' ? setMode('dark') : setMode('light')
+    const changeTheme = () => mode === 'light' ? setMode('dark') : setMode('light')
 
     return (
         <ThemeProvider theme={customTheme}>
@@ -91,9 +79,7 @@ export const AppWithRedux = () => {
                             <AddItemForm maxTitle={maxTodoListTitle} addItem={addTodoList}/>
                         </Paper>
                     </Grid>
-                    <Grid container spacing={3}>
-                        {todoListsComponents}
-                    </Grid>
+                    <TodoListsList />
                 </Container>
             </div>
         </ThemeProvider>
