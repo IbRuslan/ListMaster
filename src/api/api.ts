@@ -55,13 +55,17 @@ export enum TaskStatuses {
     Completed = 2,
     Draft = 3
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
     Hi = 2,
     Urgently = 3,
     Later = 4
+}
+export enum RESUL_CODE {
+    SUCCESS = 0,
+    FAILED = 1,
+    CATCH = 10
 }
 
 export const TodoListApi = {

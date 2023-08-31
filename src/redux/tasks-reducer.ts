@@ -1,9 +1,9 @@
 import {TaskStateType} from "../app/AppWithRedux";
 import {AddTodoListsAT, RemoveTodoListAT, SetTodoListAT} from "./todolists-reducer";
-import {TasksApi, TaskStatuses, TaskType, UpdateTaskType} from "../api/api";
+import {RESUL_CODE, TasksApi, TaskStatuses, TaskType, UpdateTaskType} from "../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "./store";
-import {setAppStatusAC} from "./app-reducer";
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 
 export type RemoveTasksAT = ReturnType<typeof removeTaskAC>
 
@@ -80,12 +80,26 @@ export const getTasksTC = (todoId: string) => (dispatch: Dispatch) => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
+
 export const createTaskTC = (todoId: string, title: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     TasksApi.createTask(todoId, title)
         .then((res) => {
-            dispatch(addTaskAC(res.data.data.item, todoId))
-            dispatch(setAppStatusAC('succeeded'))
+            if (res.data.resultCode === RESUL_CODE.SUCCESS) {
+                dispatch(addTaskAC(res.data.data.item, todoId))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                if (res.data.messages[0]) {
+                    dispatch(setAppErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorAC('Some error'))
+                }
+                dispatch(setAppStatusAC('failed'))
+            }
+        })
+        .catch((e)=> {
+            dispatch(setAppStatusAC('loading'))
+            dispatch(setAppErrorAC(e.messages))
         })
 }
 export const updateTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
@@ -102,8 +116,21 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, status: T
         dispatch(setAppStatusAC('loading'))
         TasksApi.updateTask(todolistId, taskId, model)
             .then((res) => {
-                dispatch(changeTaskStatusAC(status, todolistId, taskId))
-                dispatch(setAppStatusAC('succeeded'))
+                if (res.data.resultCode === RESUL_CODE.SUCCESS) {
+                    dispatch(changeTaskStatusAC(status, todolistId, taskId))
+                    dispatch(setAppStatusAC('succeeded'))
+                } else {
+                    if (res.data.messages[0]) {
+                        dispatch(setAppErrorAC(res.data.messages[0]))
+                    } else {
+                        dispatch(setAppErrorAC('Some error'))
+                    }
+                    dispatch(setAppStatusAC('failed'))
+                }
+            })
+            .catch((e)=> {
+                dispatch(setAppStatusAC('loading'))
+                dispatch(setAppErrorAC(e.messages))
             })
     }
 }

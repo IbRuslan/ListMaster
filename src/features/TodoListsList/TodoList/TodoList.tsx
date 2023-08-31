@@ -15,7 +15,7 @@ type TodoListPropsType = {
 
 export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
 
-    const {id, title, filter} = todoList
+    const {id, title, filter, entityStatus} = todoList
 
     const tasks = useAppSelector<TaskType[]>(state => state.tasks[id])
 
@@ -63,8 +63,7 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
         <div className="todoList">
             <h3 className={"todolist-header"}>
                 <EditableSpan classes={''} title={title} changeTitle={changeTodoListTitle}/>
-                {/*<button onClick={() => props.removeTodoList(props.todoListId)}>x</button>*/}
-                <IconButton onClick={() => dispatch(removeTodoTC(id))}>
+                <IconButton onClick={() => dispatch(removeTodoTC(id))} disabled={entityStatus === 'loading'}>
                     <HighlightOff/>
                 </IconButton>
             </h3>

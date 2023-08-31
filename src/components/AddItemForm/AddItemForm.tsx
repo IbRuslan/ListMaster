@@ -6,6 +6,7 @@ import {IconButton, TextField} from "@material-ui/core";
 export type AddItemFormType = {
     maxTitle: number
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
 export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, addItem}) => {

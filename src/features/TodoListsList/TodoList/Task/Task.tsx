@@ -38,14 +38,12 @@ export const Task = ({task, todoListId}: TaskPropsType) => {
                     checked={status === TaskStatuses.Completed}
                     onChange={changeTaskStatusHandler}
                 />
-                {/*<span className={task.isDone ? "task-done" : "task"}>{task.title}</span>*/}
                 <EditableSpan
                     classes={status === TaskStatuses.Completed ? "task-done" : "task"}
                     title={title}
                     changeTitle={changeTaskTitleHandler}
                 />
             </div>
-            {/*<button onClick={removeTask}>x</button>*/}
             <IconButton onClick={removeTaskHandler}>
                 <HighlightOff/>
             </IconButton>

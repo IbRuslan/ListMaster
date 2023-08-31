@@ -6,7 +6,7 @@ test('ids should be equals', () => {
     const startTasksState: TaskStateType = {};
     const startTodolistsState: Array<TodoListDomainType> = [];
 
-    let newTodolistTitle = {id: "todolistId3", title: "What to learn", filter: "all", order: 0, addedDate: ''};
+    let newTodolistTitle = {id: "todolistId3", title: "What to learn", filter: "all", order: 0, addedDate: '', entityStatus: "idle"};
 
     const action = addTodoListAC(newTodolistTitle);
 
