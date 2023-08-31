@@ -11,7 +11,7 @@ import {
     Toolbar,
     Typography,
     createTheme,
-    ThemeProvider, PaletteMode
+    ThemeProvider, PaletteMode, LinearProgress
 } from "@material-ui/core";
 import {Brightness4, Menu} from "@material-ui/icons";
 import {amber, teal} from '@material-ui/core/colors';
@@ -19,12 +19,15 @@ import {createTodoTC, getTodosTC, TodoListDomainType} from "../redux/todolists-r
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {TaskType} from "../api/api";
 import {TodoListsList} from "../features/TodoListsList/TodoListsList";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 export type TaskStateType = {
     [id: string]: Array<TaskType>
 }
 
 export const AppWithRedux = () => {
+
+    const status = useAppSelector(state => state.app.status)
 
     const dispatch = useAppDispatch()
 
@@ -53,6 +56,7 @@ export const AppWithRedux = () => {
     return (
         <ThemeProvider theme={customTheme}>
             <div className="App">
+                <ErrorSnackbar/>
                 <AppBar position={"static"}>
                     <Toolbar>
                         <IconButton
@@ -72,6 +76,7 @@ export const AppWithRedux = () => {
                             <Brightness4/>
                         </IconButton>
                     </Toolbar>
+                    {status === 'loading' && <LinearProgress color={'inherit'} />}
                 </AppBar>
                 <Container>
                     <Grid container sx={{p: "15px 0"}}>

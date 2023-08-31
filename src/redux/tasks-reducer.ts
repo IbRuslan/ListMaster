@@ -3,6 +3,7 @@ import {AddTodoListsAT, RemoveTodoListAT, SetTodoListAT} from "./todolists-reduc
 import {TasksApi, TaskStatuses, TaskType, UpdateTaskType} from "../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "./store";
+import {setAppStatusAC} from "./app-reducer";
 
 export type RemoveTasksAT = ReturnType<typeof removeTaskAC>
 
@@ -72,20 +73,23 @@ export const setTasksAc = (tasks: TaskType[], todoId: string) => (
 
 
 export const getTasksTC = (todoId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     TasksApi.getTasks(todoId)
         .then((res) => {
             dispatch(setTasksAc(res.data.items, todoId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 export const createTaskTC = (todoId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     TasksApi.createTask(todoId, title)
         .then((res) => {
             dispatch(addTaskAC(res.data.data.item, todoId))
+            dispatch(setAppStatusAC('succeeded'))
         })
 }
 export const updateTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
-    debugger
     if (task) {
         const model: UpdateTaskType = {
             title: task.title,
@@ -95,9 +99,11 @@ export const updateTaskStatusTC = (todolistId: string, taskId: string, status: T
             startDate: task.startDate,
             deadline: task.deadline
         }
+        dispatch(setAppStatusAC('loading'))
         TasksApi.updateTask(todolistId, taskId, model)
             .then((res) => {
                 dispatch(changeTaskStatusAC(status, todolistId, taskId))
+                dispatch(setAppStatusAC('succeeded'))
             })
     }
 }
@@ -112,15 +118,19 @@ export const updateTaskTitleTC = (todolistId: string, taskId: string, title: str
             startDate: task.startDate,
             deadline: task.deadline
         }
+        dispatch(setAppStatusAC('loading'))
         TasksApi.updateTask(todolistId, taskId, model)
             .then((res) => {
                 dispatch(changeTaskTitleAC(title, todolistId, taskId))
+                dispatch(setAppStatusAC('succeeded'))
             })
     }
 }
 export const deleteTaskTC = (todoId: string, taskId: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     TasksApi.deleteTask(todoId, taskId)
         .then((res) => {
             dispatch(removeTaskAC(todoId, taskId))
+            dispatch(setAppStatusAC('succeeded'))
     })
 }
