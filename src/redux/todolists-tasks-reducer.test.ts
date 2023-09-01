@@ -1,6 +1,5 @@
 import {addTodoListAC, removeTodoListAC, TodoListDomainType, todoListsReducer} from "./todolists-reducer";
-import {TaskStateType} from "../app/AppWithRedux";
-import {tasksReducer} from "./tasks-reducer";
+import {tasksReducer, TaskStateType} from "./tasks-reducer";
 
 test('ids should be equals', () => {
     const startTasksState: TaskStateType = {};
@@ -34,7 +33,8 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: ''
+                addedDate: '',
+                entityStatus: 'idle'
             },
             {
                 id: "2",
@@ -46,7 +46,9 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: '' },
+                addedDate: '',
+                entityStatus: 'idle'
+            },
             {
                 id: "3",
                 title: "React",
@@ -57,7 +59,8 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: ''
+                addedDate: '',
+                entityStatus: 'idle'
             }
         ],
         "todolistId2": [
@@ -71,7 +74,8 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: ''
+                addedDate: '',
+                entityStatus: 'idle'
             },
             {
                 id: "2",
@@ -83,7 +87,8 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: ''
+                addedDate: '',
+                entityStatus: 'idle'
             },
             {
                 id: "3",
@@ -95,7 +100,8 @@ test('property with todolistId should be deleted', () => {
                 order: 0,
                 startDate: '',
                 deadline: '',
-                addedDate: ''
+                addedDate: '',
+                entityStatus: 'idle'
             }
         ]
     };

@@ -4,10 +4,10 @@ import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import {Button, IconButton} from '@material-ui/core';
 import {HighlightOff} from "@material-ui/icons";
 import {useAppDispatch, useAppSelector} from "../../../redux/store";
-import {createTaskTC, getTasksTC} from "../../../redux/tasks-reducer";
+import {createTaskTC, getTasksTC, TasksDomainType} from "../../../redux/tasks-reducer";
 import {changeTodoListFilterAC, FilterValuesType, removeTodoTC, TodoListDomainType, updateTodoTC} from "../../../redux/todolists-reducer";
 import {Task} from "./Task/Task";
-import {TaskStatuses, TaskType} from "../../../api/api";
+import {TaskStatuses} from "../../../api/api";
 
 type TodoListPropsType = {
     todoList: TodoListDomainType
@@ -17,7 +17,7 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
 
     const {id, title, filter, entityStatus} = todoList
 
-    const tasks = useAppSelector<TaskType[]>(state => state.tasks[id])
+    const tasks = useAppSelector<TasksDomainType[]>(state => state.tasks[id])
 
     const dispatch = useAppDispatch()
 
@@ -25,9 +25,9 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
         dispatch(getTasksTC(id))
     }, [])
 
-    const maxTaskTitleLength = 15
+    const maxTaskTitleLength = 20
 
-    const getFilteredTasks = (allTasks: Array<TaskType>, currentFilterValue: FilterValuesType): Array<TaskType> => {
+    const getFilteredTasks = (allTasks: Array<TasksDomainType>, currentFilterValue: FilterValuesType): Array<TasksDomainType> => {
         switch (currentFilterValue) {
             case "completed":
                 return allTasks.filter(t => t.status === TaskStatuses.Completed)
@@ -62,12 +62,12 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
     return (
         <div className="todoList">
             <h3 className={"todolist-header"}>
-                <EditableSpan classes={''} title={title} changeTitle={changeTodoListTitle}/>
+                <EditableSpan classes={''} title={title} changeTitle={changeTodoListTitle} disabled={entityStatus === 'loading'}/>
                 <IconButton onClick={() => dispatch(removeTodoTC(id))} disabled={entityStatus === 'loading'}>
                     <HighlightOff/>
                 </IconButton>
             </h3>
-            <AddItemForm maxTitle={maxTaskTitleLength} addItem={addTask}/>
+            <AddItemForm maxTitle={maxTaskTitleLength} addItem={addTask} disabled={entityStatus === 'loading'} />
             {tasksList}
             <div className={"buttons-block"}>
                 <Button

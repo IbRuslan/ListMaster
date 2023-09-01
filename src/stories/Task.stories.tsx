@@ -4,7 +4,8 @@ import {Task} from "../features/TodoListsList/TodoList/Task/Task";
 import {ReduxStoreProviderDecorator} from "./decoraties/ReduxStoreProviderDecorator";
 import {AppRootStateType} from "../redux/store";
 import {useSelector} from "react-redux";
-import {TaskPriorities, TaskStatuses, TaskType} from "../api/api";
+import {TaskPriorities, TaskStatuses} from "../api/api";
+import {TasksDomainType} from "../redux/tasks-reducer";
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLISTS/Task',
@@ -20,7 +21,7 @@ type Story = StoryObj<typeof Task>;
 
 
 const TaskWithRedux = () => {
-    let task = useSelector<AppRootStateType, TaskType>(state => state.tasks["todoListId1"][0])
+    let task = useSelector<AppRootStateType, TasksDomainType>(state => state.tasks["todoListId1"][0])
 
     if (!task) task = {
         id: '1',
@@ -32,7 +33,8 @@ const TaskWithRedux = () => {
         order: 0,
         startDate: '',
         deadline: '',
-        addedDate: ''
+        addedDate: '',
+        entityStatus: 'idle'
     }
 
     return <Task task={task} todoListId={'todoListId1'}/>

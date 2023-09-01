@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import {TaskPriorities, TasksApi, TaskStatuses, TodoListApi} from "../api/api";
+import {TasksApi, TodoListApi} from "../api/api";
 
 export default {
     title: 'API'

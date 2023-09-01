@@ -9,7 +9,7 @@ export type AddItemFormType = {
     disabled?: boolean
 }
 
-export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, addItem}) => {
+export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, disabled, addItem}) => {
 
     const [title, setTitle] = useState("")
     const [error, setError] = useState<boolean>(false)
@@ -25,14 +25,12 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, addItem})
     }
 
     const isTaskTitleLengthTooLong = title.length >= maxTitle
-    const isAddTaskBtnDisabled = !title || isTaskTitleLengthTooLong
+
     const changeItemTitle = (e: ChangeEvent<HTMLInputElement>) => {
         if (error) {
             setError(false)
         }
-        if (!isTaskTitleLengthTooLong) {
-            setTitle(e.currentTarget.value)
-        }
+        setTitle(e.currentTarget.value)
     }
 
     return (
@@ -52,24 +50,21 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, addItem})
             />
             <IconButton
                 size={'small'}
-                disabled={isAddTaskBtnDisabled}
+                disabled={disabled || isTaskTitleLengthTooLong}
                 onClick={addItemTitle}>
                 <HighlightOff fontSize="small"/>
             </IconButton>
-
             <IconButton
                 size={'small'}
-                disabled={!title}
                 onClick={() => setTitle(title.slice(0, -1))}>
                 <Backspace fontSize="small"/>
             </IconButton>
             <IconButton
                 size={'small'}
-                disabled={!title}
                 onClick={() => setTitle("")}>
                 <Delete fontSize="small"/>
             </IconButton>
-            {isTaskTitleLengthTooLong && <div>You title is too long</div>}
+            {isTaskTitleLengthTooLong && <div style={{"color": "red"}}>You title is too long</div>}
             {error && <div style={{"color": "red", "fontWeight": "bold"}}>Please, enter correct title</div>}
         </div>
     );

@@ -15,15 +15,11 @@ import {
 } from "@material-ui/core";
 import {Brightness4, Menu} from "@material-ui/icons";
 import {amber, teal} from '@material-ui/core/colors';
-import {createTodoTC, getTodosTC, TodoListDomainType} from "../redux/todolists-reducer";
+import {createTodoTC, getTodosTC} from "../redux/todolists-reducer";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {TaskType} from "../api/api";
 import {TodoListsList} from "../features/TodoListsList/TodoListsList";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-
-export type TaskStateType = {
-    [id: string]: Array<TaskType>
-}
 
 export const AppWithRedux = () => {
 
@@ -31,7 +27,7 @@ export const AppWithRedux = () => {
 
     const dispatch = useAppDispatch()
 
-    const maxTodoListTitle = 10
+    const maxTodoListTitle = 20
 
     const addTodoList = useCallback((newTitle: string) => {
         dispatch(createTodoTC(newTitle))

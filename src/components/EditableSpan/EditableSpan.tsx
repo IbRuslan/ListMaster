@@ -5,14 +5,23 @@ type EditableSpanType = {
     title: string
     classes: string
     changeTitle: (newTitle: string) => void
+    disabled: boolean
 }
 
-export const EditableSpan: React.FC<EditableSpanType> = memo(({title, classes, changeTitle}) => {
+export const EditableSpan: React.FC<EditableSpanType> = memo(({disabled, title, classes, changeTitle}) => {
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
     const [value, setValue] = useState('')
+
+
+    console.log(disabled)
+
     const onEditMode = () => {
-        setIsEditMode(true)
-        setValue(title)
+        if (disabled) {
+            return
+        } else {
+            setIsEditMode(true)
+            setValue(title)
+        }
     }
     const offEditMode = () => {
         setIsEditMode(false)

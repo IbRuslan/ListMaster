@@ -2,18 +2,19 @@ import React, {ChangeEvent, useCallback} from 'react';
 import {Checkbox, IconButton} from "@material-ui/core";
 import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {HighlightOff} from "@material-ui/icons";
-import {changeTaskTitleAC, deleteTaskTC, updateTaskStatusTC, updateTaskTitleTC} from "../../../../redux/tasks-reducer";
-import {TaskStatuses, TaskType} from "../../../../api/api";
+import {deleteTaskTC, TasksDomainType, updateTaskStatusTC, updateTaskTitleTC} from "../../../../redux/tasks-reducer";
+import {TaskStatuses} from "../../../../api/api";
 import {useAppDispatch} from "../../../../redux/store";
 
 export type TaskPropsType = {
-    task: TaskType
+    task: TasksDomainType
     todoListId: string
 }
 
+
 export const Task = ({task, todoListId}: TaskPropsType) => {
 
-    const {id, title, status} = task
+    const {id, title, status, entityStatus} = task
 
     const dispatch = useAppDispatch()
 
@@ -42,9 +43,10 @@ export const Task = ({task, todoListId}: TaskPropsType) => {
                     classes={status === TaskStatuses.Completed ? "task-done" : "task"}
                     title={title}
                     changeTitle={changeTaskTitleHandler}
+                    disabled={entityStatus === 'loading'}
                 />
             </div>
-            <IconButton onClick={removeTaskHandler}>
+            <IconButton disabled={entityStatus === 'loading'} onClick={removeTaskHandler}>
                 <HighlightOff/>
             </IconButton>
         </li>
