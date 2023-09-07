@@ -67,6 +67,7 @@ export const setTodoListAC = (data: TodoListType[]) => (
 
 
 export const getTodosTC = () => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     TodoListApi.getTodoLists()
         .then((res) => {
             dispatch(setTodoListAC(res.data))
@@ -106,7 +107,7 @@ export const updateTodoTC = (todoId: string, newTitle: string) => (dispatch: Dis
         .catch((e) => {
             handleServerNetworkError(e, dispatch)
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(changeTodoListStatusAC('idle', todoId))
         })
 }
