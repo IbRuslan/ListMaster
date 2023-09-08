@@ -3,6 +3,7 @@ import {setAppStatusAC, SetAppStatusAT} from "./app-reducer";
 import {authAPI, RESUL_CODE} from "../api/api";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {LoginDataType} from "../features/Login/Login";
+import {clearTodoListsDataAC, clearTodoListsDataAT} from "./todolists-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -17,7 +18,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return state
     }
 }
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusAT
+type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusAT | clearTodoListsDataAT
 // action
 export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
@@ -45,6 +46,7 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionsType>) => {
         if (result.data.resultCode === RESUL_CODE.SUCCESS) {
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setIsLoggedInAC(false))
+            dispatch(clearTodoListsDataAC())
         } else {
             handleServerAppError(result.data, dispatch)
         }

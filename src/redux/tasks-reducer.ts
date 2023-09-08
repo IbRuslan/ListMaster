@@ -1,4 +1,4 @@
-import {AddTodoListsAT, RemoveTodoListAT, SetTodoListAT} from "./todolists-reducer";
+import {AddTodoListsAT, clearTodoListsDataAT, RemoveTodoListAT, SetTodoListAT} from "./todolists-reducer";
 import {RESUL_CODE, TasksApi, TaskStatuses, TaskType, UpdateTaskType} from "../api/api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "./store";
@@ -56,6 +56,8 @@ export const tasksReducer = (state: TaskStateType = initialState, action: tasksR
             let stateCopy = {...state}
             delete stateCopy[action.todoListId]
             return stateCopy
+        case "CLEAR-DATA":
+            return {}
         default:
             return state
     }
@@ -71,13 +73,13 @@ export type ChangeTasksStatusAT = ReturnType<typeof changeTaskStatusAC>
 
 export type changeTaskEntityStatusAT = ReturnType<typeof changeTaskEntityStatusAC>
 
-export type SetTasksAt = ReturnType<typeof setTasksAc>
+export type SetTasksAt = ReturnType<typeof setTasksAC>
 
 export type tasksReducerAT =
     | RemoveTasksAT | AddTasksAT
     | ChangeTasksTitleAT | ChangeTasksStatusAT
     | RemoveTodoListAT | AddTodoListsAT | SetTodoListAT
-    | SetTasksAt | changeTaskEntityStatusAT
+    | SetTasksAt | changeTaskEntityStatusAT | clearTodoListsDataAT
 
 export const removeTaskAC = (todoListId: string, id: string) => (
     {type: "REMOVE-TASKS", todoListId: todoListId, id: id} as const
@@ -94,7 +96,7 @@ export const changeTaskStatusAC = (status: TaskStatuses, todoListId: string, id:
 export const changeTaskEntityStatusAC = (status: RequestStatusType, todoListId: string, id: string) => (
     {type: "CHANGE-TASKS-ENTITY-STATUS", status, todoListId, id} as const
 )
-export const setTasksAc = (tasks: TaskType[], todoId: string) => (
+export const setTasksAC = (tasks: TaskType[], todoId: string) => (
     {type: "SET-TASKS", todoId, tasks} as const
 )
 
@@ -103,7 +105,7 @@ export const getTasksTC = (todoId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     TasksApi.getTasks(todoId)
         .then((res) => {
-            dispatch(setTasksAc(res.data.items, todoId))
+            dispatch(setTasksAC(res.data.items, todoId))
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((e) => {

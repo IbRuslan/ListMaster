@@ -21,10 +21,6 @@ export const TodoList: FC<TodoListPropsType> = memo( ({todoList}) => {
 
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(getTasksTC(id))
-    }, [])
-
     const maxTaskTitleLength = 20
 
     const getFilteredTasks = (allTasks: Array<TasksDomainType>, currentFilterValue: FilterValuesType): Array<TasksDomainType> => {

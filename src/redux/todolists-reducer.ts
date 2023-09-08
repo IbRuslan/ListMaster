@@ -2,6 +2,8 @@ import {RESUL_CODE, TodoListApi, TodoListType} from "../api/api";
 import {Dispatch} from "redux";
 import {RequestStatusType, setAppStatusAC, SetAppStatusAT} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {getTasksTC} from "./tasks-reducer";
+import {ThunkType} from "./store";
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListDomainType = TodoListType & {
@@ -30,6 +32,8 @@ export const todoListsReducer = (state: Array<TodoListDomainType> = initialState
             return state.map(tl => tl.id === action.todoListId ? {...tl, entityStatus: action.status} : tl)
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.todoListId)
+        case "CLEAR-DATA":
+            return []
         default:
             return state
     }
@@ -38,9 +42,10 @@ export const todoListsReducer = (state: Array<TodoListDomainType> = initialState
 export type RemoveTodoListAT = ReturnType<typeof removeTodoListAC>
 export type AddTodoListsAT = ReturnType<typeof addTodoListAC>
 export type SetTodoListAT = ReturnType<typeof setTodoListAC>
+export type clearTodoListsDataAT = ReturnType<typeof clearTodoListsDataAC>
 
 export type todoListsReducerAT =
-    | RemoveTodoListAT | AddTodoListsAT | SetTodoListAT | SetAppStatusAT
+    | RemoveTodoListAT | AddTodoListsAT | SetTodoListAT | SetAppStatusAT | clearTodoListsDataAT
     | ReturnType<typeof changeTodoListTitleAC>
     | ReturnType<typeof changeTodoListFilterAC>
     | ReturnType<typeof changeTodoListStatusAC>
@@ -65,13 +70,23 @@ export const setTodoListAC = (data: TodoListType[]) => (
     {type: "SET-TODOLIST", data} as const
 )
 
+export const clearTodoListsDataAC = () => (
+    {type: 'CLEAR-DATA'} as const
+)
 
-export const getTodosTC = () => (dispatch: Dispatch) => {
+
+export const getTodosTC = () => (dispatch: ThunkType) => {
     dispatch(setAppStatusAC('loading'))
     TodoListApi.getTodoLists()
         .then((res) => {
             dispatch(setTodoListAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
+            return res.data
+        })
+        .then((todo) => {
+            todo.forEach((t)=> {
+                dispatch(getTasksTC(t.id))
+            })
         })
         .catch((e) => {
             handleServerNetworkError(e, dispatch)

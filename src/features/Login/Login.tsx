@@ -1,8 +1,7 @@
 import React from 'react'
 import {
     Button, Checkbox, FormControl, FormControlLabel,
-    FormGroup, FormLabel, Grid, TextField
-} from "@material-ui/core";
+    FormGroup, FormLabel, Grid, TextField} from "@material-ui/core";
 import {useFormik} from 'formik';
 import {useAppDispatch, useAppSelector} from "../../redux/store";
 import {loginTC} from "../../redux/auth-reducer";
