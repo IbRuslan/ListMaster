@@ -1,7 +1,7 @@
 import React from 'react'
 import {Alert, Snackbar} from "@material-ui/core";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
-import {setAppErrorAC} from "../../redux/app-reducer";
+import { appActions } from "../../redux/app-reducer";
 
 export function ErrorSnackbar() {
 
@@ -13,7 +13,7 @@ export function ErrorSnackbar() {
         if (reason === 'clickaway') {
             return
         }
-        dispatch(setAppErrorAC(null))
+        dispatch(appActions.setAppError({error: null}))
     }
 
     return (

@@ -1,4 +1,4 @@
-import {addTodoListAC, removeTodoListAC, TodoListDomainType, todoListsReducer} from "./todolists-reducer";
+import { TodoListDomainType, todoListsActions, todoListsReducer } from "./todolists-reducer";
 import {tasksReducer, TaskStateType} from "./tasks-reducer";
 
 test('ids should be equals', () => {
@@ -7,7 +7,7 @@ test('ids should be equals', () => {
 
     let newTodolistTitle = {id: "todolistId3", title: "What to learn", filter: "all", order: 0, addedDate: '', entityStatus: "idle"};
 
-    const action = addTodoListAC(newTodolistTitle);
+    const action = todoListsActions.addTodoList({ todoList: newTodolistTitle });
 
     const endTasksState = tasksReducer(startTasksState, action)
     const endTodolistsState = todoListsReducer(startTodolistsState, action)
@@ -16,8 +16,8 @@ test('ids should be equals', () => {
     const idFromTasks = keys[0];
     const idFromTodolists = endTodolistsState[0].id;
 
-    expect(idFromTasks).toBe(action.todoListId.id);
-    expect(idFromTodolists).toBe(action.todoListId.id);
+    expect(idFromTasks).toBe(action.payload.todoList.id);
+    expect(idFromTodolists).toBe(action.payload.todoList.id);
 });
 
 test('property with todolistId should be deleted', () => {
@@ -106,7 +106,7 @@ test('property with todolistId should be deleted', () => {
         ]
     };
 
-    const action = removeTodoListAC("todolistId2");
+    const action = todoListsActions.removeTodoList({ todoListId: "todolistId2" });
 
     const endState = tasksReducer(startState, action)
 
