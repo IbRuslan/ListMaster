@@ -1,7 +1,7 @@
-import { RESUL_CODE, TasksApi, TaskStatuses, TaskType, UpdateTaskType } from "../api/api";
+import { RESUL_CODE, TasksApi, TaskStatuses, TaskType, UpdateTaskType } from "api/api";
 import { AppThunk } from "./store";
-import { appActions, RequestStatusType } from "./app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
+import { appActions, RequestStatusType } from "app/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todoListsActions } from "redux/todolists-reducer";
 
@@ -64,6 +64,9 @@ const slice = createSlice({
         action.payload.data.forEach(tl => {
           state[tl.id] = [];
         });
+      })
+      .addCase(todoListsActions.clearTodoListsData, () => {
+        return {}
       });
   }
 });

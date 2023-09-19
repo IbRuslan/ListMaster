@@ -1,4 +1,4 @@
-import { appActions } from "./app-reducer";
+import { appActions } from "app/app-reducer";
 import { authAPI, RESUL_CODE } from "../api/api";
 import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
 import { LoginDataType } from "../features/Login/Login";

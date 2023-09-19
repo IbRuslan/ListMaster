@@ -64,8 +64,10 @@ export const AddItemForm: React.FC<AddItemFormType> = memo(({maxTitle, disabled,
                 onClick={() => setTitle("")}>
                 <Delete fontSize="small"/>
             </IconButton>
-            {isTaskTitleLengthTooLong && <div style={{"color": "red"}}>You title is too long</div>}
-            {error && <div style={{"color": "red", "fontWeight": "bold"}}>Please, enter correct title</div>}
+          <div className={'spans'}>
+            {isTaskTitleLengthTooLong && <span style={{"color": "red"}}>You title is too long</span>}
+            {error && <span style={{"color": "red", "fontWeight": "bold"}}>Please, enter correct title</span>}
+          </div>
         </div>
     );
 });

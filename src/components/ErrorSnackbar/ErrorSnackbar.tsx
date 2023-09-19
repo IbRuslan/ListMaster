@@ -1,7 +1,7 @@
 import React from 'react'
 import {Alert, Snackbar} from "@material-ui/core";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
-import { appActions } from "../../redux/app-reducer";
+import { appActions } from "app/app-reducer";
 
 export function ErrorSnackbar() {
 

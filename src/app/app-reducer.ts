@@ -1,4 +1,4 @@
-import {authAPI} from "../api/api";
+import {authAPI} from "api/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "redux/store";
 import { authActions } from "redux/auth-reducer";

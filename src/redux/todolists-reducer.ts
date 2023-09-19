@@ -1,6 +1,6 @@
-import {RESUL_CODE, TodoListApi, TodoListType} from "../api/api";
-import { appActions, RequestStatusType } from "./app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {RESUL_CODE, TodoListApi, TodoListType} from "api/api";
+import { appActions, RequestStatusType } from "app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils";
 import {getTasksTC} from "./tasks-reducer";
 import { AppThunk } from "./store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

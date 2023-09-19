@@ -7,20 +7,21 @@ import {
 } from "@material-ui/core";
 import { Brightness4, Menu } from "@material-ui/icons";
 import { amber, teal } from "@material-ui/core/colors";
-import { useAppDispatch, useAppSelector } from "../redux/store";
-import { TodoListsList } from "../features/TodoListsList/TodoListsList";
-import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
-import { Login } from "../features/Login/Login";
+import { useAppDispatch, useAppSelector } from "redux/store";
+import { TodoListsList } from "features/TodoListsList/TodoListsList";
+import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { Login } from "features/Login/Login";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { initializeAppTC } from "../redux/app-reducer";
-import { logoutTC } from "../redux/auth-reducer";
+import { initializeAppTC } from "app/app-reducer";
+import { logoutTC } from "redux/auth-reducer";
+import { isLoadingSelector } from "app/app.selectors";
 
 
 export const AppWithRedux = () => {
 
   const status = useAppSelector(state => state.app.status);
   const isInitialized = useAppSelector(state => state.app.isInitialized);
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(isLoadingSelector);
 
   const dispatch = useAppDispatch();
 
