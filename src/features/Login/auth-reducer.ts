@@ -1,10 +1,11 @@
 import { appActions } from "app/app-reducer";
-import { authAPI, RESUL_CODE } from "../api/api";
-import { handleServerAppError, handleServerNetworkError } from "../common/utils/error-utils";
-import { LoginDataType } from "../features/Login/Login";
+import { RESUL_CODE } from "common/api/api";
+import { LoginDataType } from "features/Login/Login";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "app/store";
-import { todoListsActions } from "redux/todolists-reducer";
+import { todoListsActions } from "features/TodoListsList/todolists-reducer";
+import { handleServerAppError, handleServerNetworkError } from "common/utils";
+import { authAPI } from "features/Login/authApi";
 
 // const initialState = {
 //   isLoggedIn: false

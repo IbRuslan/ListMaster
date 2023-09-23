@@ -9,18 +9,19 @@ import { Brightness4, Menu } from "@material-ui/icons";
 import { amber, teal } from "@material-ui/core/colors";
 import { useAppDispatch, useAppSelector } from "app/store";
 import { TodoListsList } from "features/TodoListsList/TodoListsList";
-import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { Login } from "features/Login/Login";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { initializeAppTC } from "app/app-reducer";
-import { logoutTC } from "redux/auth-reducer";
-import { isLoadingSelector } from "app/app.selectors";
+import { logoutTC } from "features/Login/auth-reducer";
+import { selectAppStatus, selectIsInitialized } from "app/app-selectors";
+import { isLoadingSelector } from "features/Login/auth.selectors";
+import { ErrorSnackbar } from "common/components";
 
 
 export const AppWithRedux = () => {
 
-  const status = useAppSelector(state => state.app.status);
-  const isInitialized = useAppSelector(state => state.app.isInitialized);
+  const status = useAppSelector(selectAppStatus);
+  const isInitialized = useAppSelector(selectIsInitialized);
   const isLoggedIn = useAppSelector(isLoadingSelector);
 
   const dispatch = useAppDispatch();

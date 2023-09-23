@@ -1,10 +1,10 @@
-import { RESUL_CODE, TaskPriorities, TasksApi, TaskStatuses, TaskType, UpdateTaskType } from "api/api";
+import { RESUL_CODE, TaskPriorities, TaskStatuses } from "common/api/api";
 import { AppThunk } from "app/store";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "common/utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todoListsActions } from "redux/todolists-reducer";
-import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
+import { todoListsActions } from "features/TodoListsList/todolists-reducer";
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
+import { TasksApi, TaskType, UpdateTaskType } from "features/TodoListsList/todoListApi";
 
 export type TaskStateType = {
   [id: string]: Array<TasksDomainType>

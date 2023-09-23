@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { Checkbox, IconButton } from "@material-ui/core";
-import { EditableSpan } from "common/components/EditableSpan/EditableSpan";
 import { HighlightOff } from "@material-ui/icons";
-import { deleteTaskTC, TasksDomainType, tasksThunks } from "redux/tasks-reducer";
-import { TaskStatuses } from "api/api";
+import { deleteTaskTC, TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
+import { TaskStatuses } from "common/api/api";
 import { useAppDispatch } from "app/store";
+import { EditableSpan } from "common/components";
 
 export type TaskPropsType = {
   task: TasksDomainType

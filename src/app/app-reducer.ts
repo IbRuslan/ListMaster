@@ -1,17 +1,9 @@
-import {authAPI} from "api/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "app/store";
-import { authActions } from "redux/auth-reducer";
+import { authActions } from "features/Login/auth-reducer";
+import { authAPI } from "features/Login/authApi";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-
-// const initialState = {
-//     status: 'idle' as RequestStatusType,
-//     error: null as null | string,
-//     isInitialized: false
-// }
-//
-// type InitialStateType = typeof initialState
 
 
 const slice = createSlice({
@@ -77,7 +69,6 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
             }
         })
         .finally(() => {
-            // dispatch(setInitializedAC(true))
             dispatch(appActions.setInitialized({isInitialized: true}))
         })
 }

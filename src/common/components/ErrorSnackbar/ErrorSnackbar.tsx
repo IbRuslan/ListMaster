@@ -2,10 +2,11 @@ import React from 'react'
 import {Alert, Snackbar} from "@material-ui/core";
 import {useAppDispatch, useAppSelector} from "app/store";
 import { appActions } from "app/app-reducer";
+import { selectAppError } from "app/app-selectors";
 
 export function ErrorSnackbar() {
 
-    const error = useAppSelector(state => state.app.error)
+    const error = useAppSelector(selectAppError)
 
     const dispatch = useAppDispatch()
 
