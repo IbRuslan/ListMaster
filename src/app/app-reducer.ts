@@ -1,6 +1,6 @@
 import {authAPI} from "api/api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "redux/store";
+import { AppThunk } from "app/store";
 import { authActions } from "redux/auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'

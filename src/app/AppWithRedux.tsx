@@ -7,9 +7,9 @@ import {
 } from "@material-ui/core";
 import { Brightness4, Menu } from "@material-ui/icons";
 import { amber, teal } from "@material-ui/core/colors";
-import { useAppDispatch, useAppSelector } from "redux/store";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { TodoListsList } from "features/TodoListsList/TodoListsList";
-import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { Login } from "features/Login/Login";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { initializeAppTC } from "app/app-reducer";

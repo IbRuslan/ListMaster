@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { Checkbox, IconButton } from "@material-ui/core";
-import { EditableSpan } from "../../../../components/EditableSpan/EditableSpan";
+import { EditableSpan } from "common/components/EditableSpan/EditableSpan";
 import { HighlightOff } from "@material-ui/icons";
-import { deleteTaskTC, TasksDomainType, updateTaskStatusTC, updateTaskTitleTC } from "../../../../redux/tasks-reducer";
-import { TaskStatuses } from "../../../../api/api";
-import { useAppDispatch } from "../../../../redux/store";
+import { deleteTaskTC, TasksDomainType, tasksThunks } from "redux/tasks-reducer";
+import { TaskStatuses } from "api/api";
+import { useAppDispatch } from "app/store";
 
 export type TaskPropsType = {
   task: TasksDomainType
@@ -23,13 +23,13 @@ export const Task = ({ task, todoListId }: TaskPropsType) => {
   };
   const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.checked) {
-      dispatch(updateTaskStatusTC(todoListId, id, TaskStatuses.Completed));
+      dispatch(tasksThunks.updateTaskTC({todolistId: todoListId, taskId: id, domainModel: { status: TaskStatuses.Completed } }));
     } else {
-      dispatch(updateTaskStatusTC(todoListId, id, TaskStatuses.New));
+      dispatch(tasksThunks.updateTaskTC({todolistId: todoListId, taskId: id, domainModel: { status: TaskStatuses.New } }));
     }
   };
 
-  const changeTaskTitleHandler = useCallback((newTitle: string) => dispatch(updateTaskTitleTC(todoListId, id, newTitle)), [dispatch, todoListId, id]);
+  const changeTaskTitleHandler = useCallback((newTitle: string) => dispatch(tasksThunks.updateTaskTC({todolistId: todoListId, taskId: id, domainModel: { title: newTitle } })), [dispatch, todoListId, id]);
 
   return (
     <li className={"tasks-list-item"}>

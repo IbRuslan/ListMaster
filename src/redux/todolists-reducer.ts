@@ -1,9 +1,9 @@
 import {RESUL_CODE, TodoListApi, TodoListType} from "api/api";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "utils/error-utils";
-import {getTasksTC} from "./tasks-reducer";
-import { AppThunk } from "./store";
+import {handleServerAppError, handleServerNetworkError} from "common/utils/error-utils";
+import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { tasksThunks } from "redux/tasks-reducer";
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListDomainType = TodoListType & {
@@ -44,7 +44,7 @@ const slice = createSlice({
                 state.push({ ...tl, filter: "all", entityStatus: "idle" })
             })
         },
-        clearTodoListsData: (state) => {
+        clearTodoListsData: () => {
             return []
         }
     }
@@ -130,7 +130,7 @@ export const getTodosTC = (): AppThunk => (dispatch) => {
         })
         .then((todo) => {
             todo.forEach((t)=> {
-                dispatch(getTasksTC(t.id))
+                dispatch(tasksThunks.getTasksTC(t.id))
             })
         })
         .catch((e) => {

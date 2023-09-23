@@ -3,7 +3,7 @@ import {
     Button, Checkbox, FormControl, FormControlLabel,
     FormGroup, FormLabel, Grid, TextField} from "@material-ui/core";
 import {useFormik} from 'formik';
-import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {loginTC} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 
