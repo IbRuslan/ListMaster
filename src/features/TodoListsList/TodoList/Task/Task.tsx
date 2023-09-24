@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { Checkbox, IconButton } from "@material-ui/core";
 import { HighlightOff } from "@material-ui/icons";
-import { deleteTaskTC, TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
+import { TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
 import { TaskStatuses } from "common/api/api";
 import { useAppDispatch } from "app/store";
 import { EditableSpan } from "common/components";
@@ -19,7 +19,7 @@ export const Task = ({ task, todoListId }: TaskPropsType) => {
   const dispatch = useAppDispatch();
 
   const removeTaskHandler = () => {
-    dispatch(deleteTaskTC(todoListId, id));
+    dispatch(tasksThunks.deleteTaskTC({ todoListId: todoListId, taskId: id }));
   };
   const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.checked) {

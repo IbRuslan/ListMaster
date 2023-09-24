@@ -63,7 +63,7 @@ export const logoutTC = (): AppThunk => async (dispatch) => {
     const result = await authAPI.logout();
     if (result.data.resultCode === RESUL_CODE.SUCCESS) {
       dispatch(appActions.setAppStatus({ status: "succeeded"}));
-      dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
+      dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(todoListsActions.clearTodoListsData());
     } else {
       handleServerAppError(result.data, dispatch);

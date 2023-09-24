@@ -13,8 +13,6 @@ export const EditableSpan: React.FC<EditableSpanType> = memo(({disabled, title, 
     const [value, setValue] = useState('')
 
 
-    console.log(disabled)
-
     const onEditMode = () => {
         if (disabled) {
             return

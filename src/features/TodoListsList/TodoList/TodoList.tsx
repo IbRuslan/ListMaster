@@ -7,10 +7,8 @@ import { useAppDispatch, useAppSelector } from "app/store";
 import { TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
 import {
   FilterValuesType,
-  removeTodoTC,
   TodoListDomainType,
-  todoListsActions,
-  updateTodoTC
+  todoListsActions, todoListsThunks
 } from "features/TodoListsList/todolists-reducer";
 import { Task } from "./Task/Task";
 import { TaskStatuses } from "common/api/api";
@@ -55,7 +53,7 @@ export const TodoList: FC<TodoListPropsType> = memo(({ todoList }) => {
     </ul>;
 
   const addTask = useCallback((title: string) => dispatch(tasksThunks.createTaskTC({ todoId: id, title })), [dispatch, id]);
-  const changeTodoListTitle = useCallback((newTitle: string) => dispatch(updateTodoTC(id, newTitle)), [dispatch, id]);
+  const changeTodoListTitle = useCallback((newTitle: string) => dispatch(todoListsThunks.updateTodoTC({ todoId: id, newTitle: newTitle })), [dispatch, id]);
 
   const onAllClickHandler = useCallback(() => dispatch(todoListsActions.changeTodoListFilter({
     todoListId: id,
@@ -75,7 +73,7 @@ export const TodoList: FC<TodoListPropsType> = memo(({ todoList }) => {
       <h3 className={"todolist-header"}>
         <EditableSpan classes={""} title={title} changeTitle={changeTodoListTitle}
                       disabled={entityStatus === "loading"} />
-        <IconButton onClick={() => dispatch(removeTodoTC(id))} disabled={entityStatus === "loading"}>
+        <IconButton onClick={() => dispatch(todoListsThunks.removeTodoTC({ todoId: id }))} disabled={entityStatus === "loading"}>
           <HighlightOff />
         </IconButton>
       </h3>

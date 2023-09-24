@@ -123,7 +123,7 @@ test("tasks should be added for todoList", () => {
 
 test("correct task should be deleted from correct array", () => {
 
-  const action = tasksActions.removeTask({ todoListId: "todolistId2", id: "2" });
+  const action = tasksThunks.deleteTaskTC.fulfilled({ todoListId: "todolistId2", taskId: "2" }, "requestId", { todoListId: "todolistId2", taskId: "2" } );
 
   const endState = tasksReducer(startState, action);
 
