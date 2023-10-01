@@ -5,8 +5,8 @@ import {
 } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "app/store";
-import { loginTC } from "features/Login/auth-reducer";
 import { Navigate } from "react-router-dom";
+import { authThunks } from "features/Login/auth-reducer";
 
 export type LoginDataType = {
   email: string,
@@ -46,7 +46,7 @@ export const Login = () => {
       return errors;
     },
     onSubmit: values => {
-      dispatch(loginTC(values));
+      dispatch(authThunks.login({ data: values }));
       formik.resetForm();
     }
   });

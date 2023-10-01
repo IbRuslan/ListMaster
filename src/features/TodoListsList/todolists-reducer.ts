@@ -15,22 +15,6 @@ const slice = createSlice({
   name: "todoLists",
   initialState: [] as TodoListDomainType[],
   reducers: {
-    // removeTodoList: (state, action: PayloadAction<{ todoListId: string }>) => {
-    //   const index = state.findIndex(todo => todo.id === action.payload.todoListId);
-    //   if (index !== -1) state.splice(index, 1);
-    // },
-    // addTodoList: (state, action: PayloadAction<{ todoList: TodoListType }>) => {
-    //   const newTodoList: TodoListDomainType = {
-    //     ...action.payload.todoList,
-    //     filter: "all",
-    //     entityStatus: "idle"
-    //   };
-    //   state.unshift(newTodoList);
-    // },
-    // changeTodoListTitle: (state, action: PayloadAction<{ todoListId: string, newTitle: string }>) => {
-    //   const index = state.findIndex(todo => todo.id === action.payload.todoListId);
-    //   if (index !== -1) state[index].title = action.payload.newTitle;
-    // },
     changeTodoListFilter: (state, action: PayloadAction<{ todoListId: string, newFilterValue: FilterValuesType }>) => {
       const index = state.findIndex(todo => todo.id === action.payload.todoListId);
       if (index !== -1) state[index].filter = action.payload.newFilterValue;

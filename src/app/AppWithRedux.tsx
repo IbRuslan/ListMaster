@@ -11,8 +11,7 @@ import { useAppDispatch, useAppSelector } from "app/store";
 import { TodoListsList } from "features/TodoListsList/TodoListsList";
 import { Login } from "features/Login/Login";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { initializeAppTC } from "app/app-reducer";
-import { logoutTC } from "features/Login/auth-reducer";
+import { authThunks } from "features/Login/auth-reducer";
 import { selectAppStatus, selectIsInitialized } from "app/app-selectors";
 import { isLoadingSelector } from "features/Login/auth.selectors";
 import { ErrorSnackbar } from "common/components";
@@ -27,7 +26,7 @@ export const AppWithRedux = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(initializeAppTC());
+    dispatch(authThunks.initializeApp());
   }, []);
 
   let [mode, setMode] = useState<PaletteMode | undefined>("light");
@@ -68,7 +67,7 @@ export const AppWithRedux = () => {
               TodoList
             </Typography>
             {isLoggedIn ?
-              <Button color={"inherit"} variant={"outlined"} onClick={() => dispatch(logoutTC())}>Log
+              <Button color={"inherit"} variant={"outlined"} onClick={() => dispatch(authThunks.logout())}>Log
                 out</Button>
               : <Button color={"inherit"} variant={"outlined"}><NavLink to={"/login"}>Sign
                 in</NavLink></Button>

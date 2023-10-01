@@ -1,5 +1,4 @@
 import { RESUL_CODE, TaskPriorities, TaskStatuses } from "common/api/api";
-import { AppThunk } from "app/store";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todoListsActions, todoListsThunks } from "features/TodoListsList/todolists-reducer";
@@ -18,11 +17,6 @@ const slice = createSlice({
   name: "tasks",
   initialState: {} as TaskStateType,
   reducers: {
-    // removeTask: (state, action: PayloadAction<{ todoListId: string, id: string }>) => {
-    //   const tasksForCurrentTodoList = state[action.payload.todoListId];
-    //   const index = tasksForCurrentTodoList.findIndex(t => t.id === action.payload.id);
-    //   if (index !== -1) tasksForCurrentTodoList.splice(index, 1);
-    // },
     changeTaskEntityStatus: (state, action: PayloadAction<{
       todoListId: string,
       id: string,
@@ -304,27 +298,6 @@ const deleteTaskTC = createAppAsyncThunk<{ todoListId: string, taskId: string },
     }
   }
 );
-
-// export const _deleteTaskTC = (todoId: string, taskId: string): AppThunk => (dispatch) => {
-//   dispatch(tasksActions.changeTaskEntityStatus({ todoListId: todoId, id: taskId, status: "loading" }));
-//   dispatch(appActions.setAppStatus({ status: "loading" }));
-//   TasksApi.deleteTask(todoId, taskId)
-//     .then((res) => {
-//       if (res.data.resultCode === RESUL_CODE.SUCCESS) {
-//         dispatch(tasksActions.removeTask({ todoListId: todoId, id: taskId }));
-//         dispatch(appActions.setAppStatus({ status: "succeeded" }));
-//       } else {
-//         handleServerAppError(res.data, dispatch);
-//       }
-//     })
-//     .catch((e) => {
-//       handleServerNetworkError(e, dispatch);
-//     })
-//     .finally(() => {
-//       dispatch(appActions.setAppStatus({ status: "succeeded" }));
-//       dispatch(tasksActions.changeTaskEntityStatus({ todoListId: todoId, id: taskId, status: "idle" }));
-//     });
-// };
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;

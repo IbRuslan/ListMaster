@@ -1,35 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "app/store";
-import { authActions } from "features/Login/auth-reducer";
-import { authAPI } from "features/Login/authApi";
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 
 
 const slice = createSlice({
-    name: 'app',
-    initialState: {
-        status: 'idle' as RequestStatusType,
-        error: null as null | string,
-        isInitialized: false
+  name: "app",
+  initialState: {
+    status: "idle" as RequestStatusType,
+    error: null as null | string,
+    isInitialized: false
+  },
+  reducers: {
+    setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+      state.status = action.payload.status;
     },
-    reducers: {
-        setAppStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
-            state.status = action.payload.status
-        },
-        setAppError: (state, action: PayloadAction<{error: null | string}>) => {
-            state.error = action.payload.error
-        },
-        setInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
-            state.isInitialized = action.payload.isInitialized
-        }
+    setAppError: (state, action: PayloadAction<{ error: null | string }>) => {
+      state.error = action.payload.error;
+    },
+    setInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized;
     }
-})
+  }
+});
 
 export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
-
-export const appReducer = slice.reducer
-export const appActions = slice.actions
 
 // export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
 //     switch (action.type) {
@@ -60,15 +54,19 @@ export const appActions = slice.actions
 // //     {type: 'APP/SET-INITIALIZED', isInitialized} as const
 // // )
 
-export const initializeAppTC = (): AppThunk => (dispatch) => {
-    authAPI.me()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
-            } else {
-            }
-        })
-        .finally(() => {
-            dispatch(appActions.setInitialized({isInitialized: true}))
-        })
-}
+
+// export const initializeAppTC = (): AppThunk => (dispatch) => {
+//   authAPI.me()
+//     .then(res => {
+//       if (res.data.resultCode === 0) {
+//         dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
+//       } else {
+//       }
+//     })
+//     .finally(() => {
+//       dispatch(appActions.setInitialized({ isInitialized: true }));
+//     });
+// };
+
+export const appReducer = slice.reducer;
+export const appActions = slice.actions;
