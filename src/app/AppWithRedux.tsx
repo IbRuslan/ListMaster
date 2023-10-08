@@ -8,17 +8,18 @@ import {
 import { Brightness4, Menu } from "@material-ui/icons";
 import { amber, teal } from "@material-ui/core/colors";
 import { useAppDispatch, useAppSelector } from "app/store";
-import { TodoListsList } from "features/TodoListsList/TodoListsList";
-import { Login } from "features/Login/Login";
-import { Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { authThunks } from "features/Login/auth-reducer";
+import { TodoListsList } from "features/TodoListsList/ui/TodoListsList";
+import { Login } from "features/Login/ui/Login";
+import { Navigate, NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import { authThunks } from "features/Login/model/auth-reducer";
 import { selectAppStatus, selectIsInitialized } from "app/app-selectors";
-import { isLoadingSelector } from "features/Login/auth.selectors";
+import { isLoadingSelector } from "features/Login/model/auth.selectors";
 import { ErrorSnackbar } from "common/components";
 
 
 export const AppWithRedux = () => {
 
+  const navigate = useNavigate()
   const status = useAppSelector(selectAppStatus);
   const isInitialized = useAppSelector(selectIsInitialized);
   const isLoggedIn = useAppSelector(isLoadingSelector);
@@ -69,7 +70,7 @@ export const AppWithRedux = () => {
             {isLoggedIn ?
               <Button color={"inherit"} variant={"outlined"} onClick={() => dispatch(authThunks.logout())}>Log
                 out</Button>
-              : <Button color={"inherit"} variant={"outlined"}><NavLink to={"/login"}>Sign
+              : <Button color={"inherit"} variant={"outlined"}><NavLink to={"/ListMaster/login"}>Sign
                 in</NavLink></Button>
             }
             <IconButton onClick={changeTheme}>
@@ -80,10 +81,11 @@ export const AppWithRedux = () => {
         </AppBar>
         <Container>
           <Routes>
-            <Route path={"/"} element={<TodoListsList />} />
-            <Route path={"/login"} element={<Login />} />
-            <Route path={"/404"} element={<h1>404: PAGE NOT FOUND</h1>} />
-            <Route path={"*"} element={<Navigate to={"/404"} />} />
+            <Route path={"/ListMaster/content"} element={<TodoListsList />} />
+            <Route path={"/ListMaster/login"} element={<Login />} />
+            <Route path={"/ListMaster"} element={<Navigate to={"/ListMaster/content"} />} />
+            <Route path={"/ListMaster/404"} element={<h1>404: PAGE NOT FOUND</h1>} />
+            <Route path={"/ListMaster/*"} element={<Navigate to={"/ListMaster/404"} />} />
           </Routes>
         </Container>
       </div>

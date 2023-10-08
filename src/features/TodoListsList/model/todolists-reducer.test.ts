@@ -5,7 +5,7 @@ import {
   todoListsActions,
   todoListsReducer,
   todoListsThunks
-} from "features/TodoListsList/todolists-reducer";
+} from "features/TodoListsList/model/todolists-reducer";
 
 
 let todolistId1: string;

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from "react";
 import { Checkbox, IconButton } from "@material-ui/core";
 import { HighlightOff } from "@material-ui/icons";
-import { TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
+import { TasksDomainType, tasksThunks } from "features/TodoListsList/model/tasks-reducer";
 import { TaskStatuses } from "common/api/api";
 import { useAppDispatch } from "app/store";
 import { EditableSpan } from "common/components";
@@ -29,7 +29,9 @@ export const Task = ({ task, todoListId }: TaskPropsType) => {
     }
   };
 
-  const changeTaskTitleHandler = useCallback((newTitle: string) => dispatch(tasksThunks.updateTaskTC({todolistId: todoListId, taskId: id, domainModel: { title: newTitle } })), [dispatch, todoListId, id]);
+  const changeTaskTitleHandler = useCallback((newTitle: string) => {
+      dispatch(tasksThunks.updateTaskTC({todolistId: todoListId, taskId: id, domainModel: { title: newTitle } }))
+  }, [dispatch, todoListId, id]);
 
   return (
     <li className={"tasks-list-item"}>

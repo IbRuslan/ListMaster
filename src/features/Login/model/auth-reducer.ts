@@ -1,10 +1,10 @@
 import { appActions } from "app/app-reducer";
 import { RESUL_CODE } from "common/api/api";
-import { LoginDataType } from "features/Login/Login";
+import { LoginDataType } from "features/Login/ui/Login";
 import { createSlice } from "@reduxjs/toolkit";
-import { todoListsActions } from "features/TodoListsList/todolists-reducer";
+import { todoListsActions } from "features/TodoListsList/model/todolists-reducer";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
-import { authAPI } from "features/Login/authApi";
+import { authAPI } from "features/Login/api/authApi";
 
 // const initialState = {
 //   isLoggedIn: false

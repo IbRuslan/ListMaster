@@ -3,9 +3,9 @@ import { useAppDispatch, useAppSelector } from "app/store";
 import {
   TodoListDomainType,
   todoListsThunks
-} from "features/TodoListsList/todolists-reducer";
+} from "features/TodoListsList/model/todolists-reducer";
 import { Grid, Paper } from "@material-ui/core";
-import { TodoList } from "./TodoList/TodoList";
+import { TodoList } from "features/TodoListsList/ui/TodoList/TodoList";
 import { AddItemForm } from "common/components";
 import { Navigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ export const TodoListsList = () => {
   }, [dispatch]);
 
   if (!isLoggedIn) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/ListMaster/login"} />;
   }
 
   return (

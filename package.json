@@ -2,6 +2,7 @@
   "name": "1-lesson",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://IbRuslan.github.io/ListMaster",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -23,6 +24,7 @@
     "@types/uuid": "^9.0.1",
     "axios": "^1.4.0",
     "formik": "^2.4.4",
+    "gh-pages": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.1",
@@ -37,10 +39,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 9009",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build-storybook": "storybook build"
   },
   "eslintConfig": {

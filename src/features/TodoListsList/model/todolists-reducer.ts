@@ -1,9 +1,9 @@
 import { RESUL_CODE } from "common/api/api";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { tasksThunks } from "features/TodoListsList/tasks-reducer";
+import { tasksThunks } from "features/TodoListsList/model/tasks-reducer";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
-import { TodoListApi, TodoListType } from "features/TodoListsList/todoListApi";
+import { TodoListApi, TodoListType } from "features/TodoListsList/api/todoListApi";
 
 export type FilterValuesType = "all" | "active" | "completed"
 export type TodoListDomainType = TodoListType & {
@@ -137,8 +137,6 @@ const getTodosTC = createAppAsyncThunk<{ data: TodoListType[] }>(
     } catch (e) {
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null);
-    } finally {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
     }
   }
 );
@@ -151,6 +149,7 @@ const createTodoTC = createAppAsyncThunk<{ todoList: TodoListType }, { title: st
       dispatch(appActions.setAppStatus({ status: "loading" }));
       const res = await TodoListApi.createTodoList(arg.title);
       if (res.data.resultCode === RESUL_CODE.SUCCESS) {
+        dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return { todoList: res.data.data.item };
       } else {
         handleServerAppError(res.data, dispatch);
@@ -159,8 +158,6 @@ const createTodoTC = createAppAsyncThunk<{ todoList: TodoListType }, { title: st
     } catch (e) {
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null);
-    } finally {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
     }
   }
 );
@@ -202,7 +199,6 @@ const updateTodoTC = createAppAsyncThunk<{ todoListId: string, newTitle: string 
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null);
     } finally {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
       dispatch(todoListsActions.changeTodoListStatus({ todoListId: arg.todoId, entityStatus: "idle" }));
     }
   }
@@ -239,6 +235,7 @@ const removeTodoTC = createAppAsyncThunk<{ todoListId: string }, { todoId: strin
       const res = await TodoListApi.deleteTodoList(arg.todoId);
 
       if (res.data.resultCode === RESUL_CODE.SUCCESS) {
+        dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return { todoListId: arg.todoId };
       } else {
         handleServerAppError(res.data, dispatch);
@@ -249,8 +246,6 @@ const removeTodoTC = createAppAsyncThunk<{ todoListId: string }, { todoId: strin
       handleServerNetworkError(e, dispatch);
       dispatch(todoListsActions.changeTodoListStatus({ todoListId: arg.todoId, entityStatus: "idle" }));
       return rejectWithValue(null);
-    } finally {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
     }
   }
 );

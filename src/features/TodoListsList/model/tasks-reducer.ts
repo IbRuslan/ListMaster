@@ -1,13 +1,14 @@
 import { RESUL_CODE, TaskPriorities, TaskStatuses } from "common/api/api";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todoListsActions, todoListsThunks } from "features/TodoListsList/todolists-reducer";
+import { todoListsActions, todoListsThunks } from "features/TodoListsList/model/todolists-reducer";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
-import { TasksApi, TaskType, UpdateTaskType } from "features/TodoListsList/todoListApi";
+import { TasksApi, TaskType, UpdateTaskType } from "features/TodoListsList/api/tasksApi";
 
-export type TaskStateType = {
-  [id: string]: Array<TasksDomainType>
-}
+export type TaskStateType = Record<string, Array<TasksDomainType>>
+// {
+//   [id: string]: Array<TasksDomainType>
+// }
 
 export type TasksDomainType = TaskType & {
   entityStatus: RequestStatusType
@@ -285,6 +286,7 @@ const deleteTaskTC = createAppAsyncThunk<{ todoListId: string, taskId: string },
       dispatch(appActions.setAppStatus({ status: "loading" }));
       const res = await TasksApi.deleteTask(arg.todoListId, arg.taskId);
       if (res.data.resultCode === RESUL_CODE.SUCCESS) {
+        dispatch(appActions.setAppStatus({ status: "succeeded" }));
         return { todoListId: arg.todoListId, taskId: arg.taskId };
       }
       handleServerAppError(res.data, dispatch);
@@ -293,7 +295,6 @@ const deleteTaskTC = createAppAsyncThunk<{ todoListId: string, taskId: string },
       handleServerNetworkError(e, dispatch);
       return rejectWithValue(null)
     } finally {
-      dispatch(appActions.setAppStatus({ status: "succeeded" }));
       dispatch(tasksActions.changeTaskEntityStatus({ todoListId: arg.todoListId, id: arg.taskId, status: "idle" }));
     }
   }

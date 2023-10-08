@@ -6,7 +6,7 @@ import {
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "app/store";
 import { Navigate } from "react-router-dom";
-import { authThunks } from "features/Login/auth-reducer";
+import { authThunks } from "features/Login/model/auth-reducer";
 
 export type LoginDataType = {
   email: string,
@@ -54,7 +54,7 @@ export const Login = () => {
   const initialValuesArray = Object.values(formik.errors);
 
   if (isLoggedIn) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/ListMaster/content"} />;
   }
 
   return (

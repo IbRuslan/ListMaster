@@ -1,4 +1,4 @@
-import { LoginDataType } from "features/Login/Login";
+import { LoginDataType } from "features/Login/ui/Login";
 import { AxiosResponse } from "axios";
 import { instance, ResponseType } from "common/api/api";
 

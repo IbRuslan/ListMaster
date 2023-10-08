@@ -4,13 +4,13 @@ import { EditableSpan } from "common/components";
 import { Button, IconButton } from "@material-ui/core";
 import { HighlightOff } from "@material-ui/icons";
 import { useAppDispatch, useAppSelector } from "app/store";
-import { TasksDomainType, tasksThunks } from "features/TodoListsList/tasks-reducer";
+import { TasksDomainType, tasksThunks } from "features/TodoListsList/model/tasks-reducer";
 import {
   FilterValuesType,
   TodoListDomainType,
   todoListsActions, todoListsThunks
-} from "features/TodoListsList/todolists-reducer";
-import { Task } from "./Task/Task";
+} from "features/TodoListsList/model/todolists-reducer";
+import { Task } from "features/TodoListsList/ui/TodoList/Task/Task";
 import { TaskStatuses } from "common/api/api";
 
 type TodoListPropsType = {
