@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.css": "/ListMaster/static/css/main.e8867701.css",
+    "main.js": "/ListMaster/static/js/main.15261c03.js",
+    "index.html": "/ListMaster/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.e8867701.css",
+    "static/js/main.15261c03.js"
+  ]
+}
